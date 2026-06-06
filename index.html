@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -7,108 +8,354 @@
 
 <style>
 *{box-sizing:border-box}
+
 :root{
-  --bg:#080c11;--panel:#121a22;--panel2:#17232e;--border:#2b3b4a;
-  --text:#f5f7fa;--muted:#b8c4d0;--accent:#5ef0b0;--accent2:#4db7ff;
+  --bg:#080c11;
+  --header:#101820;
+  --panel:#121a22;
+  --panel2:#17232e;
+  --border:#2b3b4a;
+  --text:#f5f7fa;
+  --muted:#b8c4d0;
+  --accent:#5ef0b0;
+  --accent2:#4db7ff;
 }
-@media(prefers-color-scheme:light){
-  :root.auto{
-    --bg:#eef3f8;--panel:#fff;--panel2:#dce8f3;--border:#b8c7d6;
-    --text:#071018;--muted:#344454;
-  }
-}
+
 html{scroll-behavior:smooth}
+
 body{
-  margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text);
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
   animation:siteLoad .55s ease both;
 }
-@keyframes siteLoad{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+@keyframes siteLoad{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:none}
+}
+
 header{
-  height:82px;padding:0 8%;display:flex;align-items:center;justify-content:space-between;
-  background:#101820;border-bottom:1px solid #263544;position:sticky;top:0;z-index:20;
+  height:82px;
+  padding:0 8%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:var(--header);
+  border-bottom:1px solid #263544;
+  position:sticky;
+  top:0;
+  z-index:20;
 }
-.logo{display:flex;align-items:center;gap:12px;font-size:26px;font-weight:900}
-.logo-box{
-  width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,#76e6ff,#6578ff);
-  display:grid;place-items:center;color:#071018;font-weight:900
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:26px;
+  font-weight:900;
 }
+
+.app-logo{
+  width:46px;
+  height:46px;
+  border-radius:13px;
+  object-fit:cover;
+  background:#d9d9d9;
+}
+
+.logo-fallback{
+  width:46px;
+  height:46px;
+  border-radius:13px;
+  background:linear-gradient(135deg,#76e6ff,#6578ff);
+  display:grid;
+  place-items:center;
+  color:#071018;
+  font-weight:900;
+}
+
 nav button{
-  background:none;border:0;color:#b9c6d2;margin-left:16px;font-size:15px;font-weight:800;cursor:pointer
+  background:none;
+  border:0;
+  color:#b9c6d2;
+  margin-left:16px;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
 }
-nav button:hover,nav button.active{color:var(--accent)}
-.page{display:none;min-height:calc(100vh - 82px);padding:65px 8%;animation:pageIn .35s ease both}
-.page.active{display:block}
-@keyframes pageIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
-.tag{color:#7edcff;font-weight:900;letter-spacing:1px}
-h1{font-size:64px;margin:15px 0}
-h2{font-size:42px;margin:10px 0 20px}
-h3{font-size:25px;margin:10px 0}
-p{color:var(--muted);font-size:18px;line-height:1.6}
+
+nav button:hover,
+nav button.active{
+  color:var(--accent);
+}
+
+.page{
+  display:none;
+  min-height:calc(100vh - 82px);
+  padding:65px 8%;
+  animation:pageIn .35s ease both;
+}
+
+.page.active{
+  display:block;
+}
+
+@keyframes pageIn{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:none}
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:start;
+}
+
+.tag{
+  color:#7edcff;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+h1{
+  font-size:64px;
+  margin:15px 0;
+}
+
+h2{
+  font-size:42px;
+  margin:10px 0 20px;
+}
+
+h3{
+  font-size:25px;
+  margin:10px 0;
+}
+
+p{
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.6;
+}
+
 .btn{
-  padding:14px 22px;border-radius:13px;border:1px solid #314456;background:var(--panel2);
-  color:var(--text);font-weight:900;cursor:pointer;text-decoration:none;display:inline-block;margin:8px 8px 8px 0;
-  transition:.2s
+  padding:14px 22px;
+  border-radius:13px;
+  border:1px solid #314456;
+  background:var(--panel2);
+  color:var(--text);
+  font-weight:900;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-block;
+  margin:8px 8px 8px 0;
+  transition:.2s;
 }
-.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#051014}
-.btn:hover{transform:translateY(-2px)}
-.panel,.card{
-  background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:26px
+
+.btn.primary{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#051014;
 }
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:25px}
-.app-preview{display:grid;grid-template-columns:190px 1fr;padding:0;overflow:hidden}
-.sidebar{background:#0d1218;border-right:1px solid #293847;padding:24px}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.panel,
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:26px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+  margin-top:25px;
+}
+
+.app-preview{
+  display:grid;
+  grid-template-columns:190px 1fr;
+  padding:0;
+  overflow:hidden;
+}
+
+.sidebar{
+  background:#0d1218;
+  border-right:1px solid #293847;
+  padding:24px;
+}
+
 .side-item{
-  padding:14px;margin:10px 0;border-radius:11px;background:#17212b;font-weight:800;cursor:pointer;transition:.2s
+  padding:14px;
+  margin:10px 0;
+  border-radius:11px;
+  background:#17212b;
+  font-weight:800;
+  cursor:pointer;
+  transition:.2s;
 }
-.side-item:hover{transform:translateX(4px);background:#203040}
-.preview-main{padding:30px}
+
+.side-item:hover{
+  transform:translateX(4px);
+  background:#203040;
+}
+
+.preview-main{
+  padding:30px;
+}
+
 pre{
-  background:#060a0e;border:1px solid var(--border);border-radius:14px;padding:18px;
-  overflow:auto;color:#d7f4ff;min-height:280px;white-space:pre-wrap
+  background:#060a0e;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:18px;
+  overflow:auto;
+  color:#d7f4ff;
+  min-height:280px;
+  white-space:pre-wrap;
 }
+
 .setting-row{
-  display:flex;justify-content:space-between;align-items:center;gap:20px;margin:18px 0;padding:20px;
-  border:1px solid var(--border);border-radius:16px;background:var(--panel)
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  margin:18px 0;
+  padding:20px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:var(--panel);
 }
-select,input[type=range]{
-  padding:10px;border-radius:10px;background:var(--panel2);color:var(--text);border:1px solid #334454
+
+select{
+  padding:12px;
+  border-radius:10px;
+  background:var(--panel2);
+  color:var(--text);
+  border:1px solid #334454;
 }
+
 .slot{
-  cursor:pointer;transition:.2s
+  cursor:pointer;
+  transition:.2s;
 }
-.slot:hover{transform:translateY(-3px);border-color:var(--accent2)}
-.slot.active{border-color:var(--accent)}
+
+.slot:hover{
+  transform:translateY(-3px);
+  border-color:var(--accent2);
+}
+
+.slot.active{
+  border-color:var(--accent);
+}
+
 .version-badge{
-  display:inline-block;padding:7px 12px;border-radius:999px;background:rgba(94,240,176,.12);
-  border:1px solid rgba(94,240,176,.5);color:var(--accent);font-weight:900;margin-bottom:10px
+  display:inline-block;
+  padding:7px 12px;
+  border-radius:999px;
+  background:rgba(94,240,176,.12);
+  border:1px solid rgba(94,240,176,.5);
+  color:var(--accent);
+  font-weight:900;
+  margin-bottom:10px;
 }
+
 .download-item{
-  display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;padding:22px;border-radius:18px;
-  border:1px solid var(--border);background:var(--panel);margin-top:18px
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:18px;
+  align-items:center;
+  padding:22px;
+  border-radius:18px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  margin-top:18px;
 }
-.small{font-size:14px;color:#8fa0b1}
-.scale-buttons button{min-width:44px}
-footer{text-align:center;color:#8796a6;padding:30px;border-top:1px solid #263544}
+
+.small{
+  font-size:14px;
+  color:#8fa0b1;
+}
+
+.scale-buttons button{
+  min-width:44px;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  z-index:999;
+  place-items:center;
+  padding:25px;
+}
+
+.modal-box{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:28px;
+  max-width:560px;
+  width:100%;
+  animation:pageIn .3s ease both;
+}
+
+footer{
+  text-align:center;
+  color:#8796a6;
+  padding:30px;
+  border-top:1px solid #263544;
+}
+
 @media(max-width:900px){
-  .grid,.app-preview,.download-item{grid-template-columns:1fr}
-  nav{display:none}
-  h1{font-size:44px}
-  .sidebar{display:none}
+  .grid,.app-preview,.download-item{
+    grid-template-columns:1fr;
+  }
+
+  nav{
+    display:none;
+  }
+
+  h1{
+    font-size:44px;
+  }
+
+  .sidebar{
+    display:none;
+  }
+
+  .setting-row{
+    flex-direction:column;
+    align-items:flex-start;
+  }
 }
 </style>
+
 </head>
 
 <body>
 
 <header>
-  <div class="logo"><div class="logo-box">MH</div>MacroHub</div>
+  <div class="logo">
+    <img class="app-logo" src="assets/macrohub-logo.png" alt="MacroHub Logo" onerror="this.outerHTML='<div class=&quot;logo-fallback&quot;>MH</div>'">
+    MacroHub
+  </div>
+
   <nav>
     <button onclick="showPage('home')" id="nav-home">Home</button>
     <button onclick="showPage('about')" id="nav-about">About</button>
     <button onclick="showPage('downloads')" id="nav-downloads">Downloads</button>
     <button onclick="showPage('dependencies')" id="nav-dependencies">Dependencies</button>
     <button onclick="showPage('scripts')" id="nav-scripts">Scripts</button>
+    <button onclick="showPage('updates')" id="nav-updates">Update Log</button>
     <button onclick="showPage('settings')" id="nav-settings">Settings</button>
   </nav>
 </header>
@@ -126,25 +373,37 @@ footer{text-align:center;color:#8796a6;padding:30px;border-top:1px solid #263544
       <button class="btn" onclick="showPage('scripts')">View Scripts</button>
     </div>
 
-    <div class="panel app-preview">
-      <div class="sidebar">
-        <div class="side-item" onclick="showPage('home')">🏠 Home</div>
-        <div class="side-item" onclick="openScript('combat')">⚔️ Combat</div>
-        <div class="side-item" onclick="openScript('farming')">🌾 Farming</div>
-        <div class="side-item" onclick="openScript('mining')">⛏️ Mining</div>
-        <div class="side-item" onclick="openScript('fishing')">🎣 Fishing</div>
-        <div class="side-item" onclick="showPage('settings')">⚙️ Settings</div>
+```
+<div class="panel app-preview">
+  <div class="sidebar">
+    <div class="side-item" onclick="showPage('home')">🏠 Home</div>
+    <div class="side-item" onclick="openScript('combat')">⚔️ Combat</div>
+    <div class="side-item" onclick="openScript('farming')">🌾 Farming</div>
+    <div class="side-item" onclick="openScript('mining')">⛏️ Mining</div>
+    <div class="side-item" onclick="openScript('cap')">🎣 Fishing</div>
+    <div class="side-item" onclick="showPage('settings')">⚙️ Settings</div>
+  </div>
+
+  <div class="preview-main">
+    <div class="tag">READY WHEN YOU ARE</div>
+    <h2>Choose a category. Pick a script. Launch it.</h2>
+    <p>Organized presets, update support, and separate Windows/macOS instructions.</p>
+
+    <div class="cards">
+      <div class="card slot" onclick="openScript('combat')">
+        <h3>⚔️ Combat</h3>
+        <p>Hotkey-based routines and helpers.</p>
       </div>
-      <div class="preview-main">
-        <div class="tag">READY WHEN YOU ARE</div>
-        <h2>Choose a category. Pick a script. Launch it.</h2>
-        <p>Organized presets, update support, and separate Windows/macOS instructions.</p>
-        <div class="cards">
-          <div class="card slot" onclick="openScript('combat')"><h3>⚔️ Combat</h3><p>Hotkey-based routines and helpers.</p></div>
-          <div class="card slot" onclick="openScript('farming')"><h3>🌾 Farming</h3><p>Crop and repeat-cycle script slots.</p></div>
-        </div>
+
+      <div class="card slot" onclick="openScript('farming')">
+        <h3>🌾 Farming</h3>
+        <p>Crop and repeat-cycle script slots.</p>
       </div>
     </div>
+  </div>
+</div>
+```
+
   </div>
 </section>
 
@@ -152,11 +411,30 @@ footer{text-align:center;color:#8796a6;padding:30px;border-top:1px solid #263544
   <div class="tag">ABOUT</div>
   <h2>What MacroHub Does</h2>
   <p>MacroHub is made to replace the annoying process of copying and pasting code into an editor every time. The app keeps scripts organized by purpose, gives users clean category pages, and lets them run saved tools from one desktop hub.</p>
+
   <div class="cards">
-    <div class="card"><h3>Organized Script Slots</h3><p>Scripts are separated into Combat, Farming, Mining, Fishing, and more.</p></div>
-    <div class="card"><h3>Windows and macOS Support</h3><p>The website shows platform-specific code so users can copy the correct version.</p></div>
-    <div class="card"><h3>Update Center</h3><p>The app can send users here to download the latest updater file.</p></div>
-    <div class="card"><h3>Clean Hub UI</h3><p>The website matches the dark dashboard style of the desktop app.</p></div>
+    <div class="card">
+      <h3>Organized Script Slots</h3>
+      <p>Scripts are separated into Combat, Farming, Mining, Fishing, and more.</p>
+    </div>
+
+```
+<div class="card">
+  <h3>Windows and macOS Support</h3>
+  <p>The website shows platform-specific code so users can copy the correct version.</p>
+</div>
+
+<div class="card">
+  <h3>Update Center</h3>
+  <p>The app can send users here to download the latest updater file.</p>
+</div>
+
+<div class="card">
+  <h3>Clean Hub UI</h3>
+  <p>The website matches the dark dashboard style of the desktop app.</p>
+</div>
+```
+
   </div>
 </section>
 
@@ -169,38 +447,68 @@ footer{text-align:center;color:#8796a6;padding:30px;border-top:1px solid #263544
     <span class="version-badge">Latest Version</span>
     <h3>MacroHub v1.0.0</h3>
     <p>Use these files to download or update MacroHub.</p>
-    <button class="btn primary" onclick="downloadWindowsLatest()">Download for Windows</button>
-    <button class="btn primary" onclick="downloadMacLatest()">Download for macOS</button>
-    <button class="btn" onclick="showPage('dependencies')">View Dependencies</button>
-    <p class="small">Replace the placeholder links in the script with your GitHub Release download links.</p>
+
+```
+<a class="btn primary" href="https://github.com/BrWill01/MacroHub-Website/raw/main/downloads/Download%20MacroHub.bat" download>
+  Download for Windows
+</a>
+
+<a class="btn primary" href="https://github.com/BrWill01/MacroHub-Website/raw/main/downloads/Download%20MacroHub.command" download>
+  Download for macOS
+</a>
+
+<button class="btn" onclick="showPage('dependencies')">View Dependencies</button>
+```
+
   </div>
 
   <h2 style="margin-top:45px;">Previous Versions</h2>
+
   <div class="download-item">
-    <div><h3>MacroHub v0.9.0</h3><p>Previous backup release.</p><p class="small">Released: add date later</p></div>
-    <div><button class="btn">Windows</button><button class="btn">macOS</button></div>
+    <div>
+      <h3>MacroHub v0.9.0</h3>
+      <p>Previous backup release.</p>
+      <p class="small">Released: add date later</p>
+    </div>
+    <div>
+      <button class="btn" onclick="alert('Add v0.9.0 Windows download link later.')">Windows</button>
+      <button class="btn" onclick="alert('Add v0.9.0 macOS download link later.')">macOS</button>
+    </div>
   </div>
+
   <div class="download-item">
-    <div><h3>MacroHub v0.8.0</h3><p>Older backup release.</p><p class="small">Released: add date later</p></div>
-    <div><button class="btn">Windows</button><button class="btn">macOS</button></div>
+    <div>
+      <h3>MacroHub v0.8.0</h3>
+      <p>Older backup release.</p>
+      <p class="small">Released: add date later</p>
+    </div>
+    <div>
+      <button class="btn" onclick="alert('Add v0.8.0 Windows download link later.')">Windows</button>
+      <button class="btn" onclick="alert('Add v0.8.0 macOS download link later.')">macOS</button>
+    </div>
   </div>
 </section>
 
 <section id="dependencies" class="page">
   <div class="tag">DEPENDENCIES</div>
   <h2>Required Downloads</h2>
+
   <div class="cards">
     <div class="card">
       <h3>Windows</h3>
-      <p>Windows users need AutoIt and SciTE Script Editor to run/edit the AutoIt scripts.</p>
+      <p>Windows users need AutoIt and SciTE Script Editor to run and edit AutoIt scripts.</p>
       <button class="btn primary" onclick="window.open('https://www.autoitscript.com/site/autoit/downloads/','_blank')">Download AutoIt</button>
       <button class="btn" onclick="window.open('https://www.autoitscript.com/site/autoit-script-editor/downloads/','_blank')">Download SciTE Editor</button>
     </div>
-    <div class="card">
-      <h3>macOS</h3>
-      <p>macOS users can use Hammerspoon for hotkeys, mouse actions, and screen pixel checks.</p>
-      <button class="btn primary" onclick="window.open('https://www.hammerspoon.org/','_blank')">Download Hammerspoon</button>
-    </div>
+
+```
+<div class="card">
+  <h3>macOS</h3>
+  <p>macOS users can use Hammerspoon for hotkeys, mouse actions, and screen pixel checks.</p>
+  <button class="btn primary" onclick="window.open('https://www.hammerspoon.org/','_blank')">Download Hammerspoon</button>
+</div>
+```
+
   </div>
 </section>
 
@@ -210,18 +518,64 @@ footer{text-align:center;color:#8796a6;padding:30px;border-top:1px solid #263544
   <p>Select a slot, choose Windows or macOS, then copy the script.</p>
 
   <div class="cards">
-    <div class="card slot active" onclick="selectScript('cap')"><h3>🎣 Cap Cycle Detector</h3><p>Ready script for Windows and macOS.</p></div>
-    <div class="card slot" onclick="selectScript('combat')"><h3>⚔️ Combat Slot</h3><p>Placeholder script slot.</p></div>
-    <div class="card slot" onclick="selectScript('farming')"><h3>🌾 Farming Slot</h3><p>Placeholder script slot.</p></div>
-    <div class="card slot" onclick="selectScript('mining')"><h3>⛏️ Mining Slot</h3><p>Placeholder script slot.</p></div>
+    <div class="card slot active" onclick="selectScript('cap')">
+      <h3>🎣 Cap Cycle Detector</h3>
+      <p>Ready script for Windows and macOS.</p>
+    </div>
+
+```
+<div class="card slot" onclick="selectScript('combat')">
+  <h3>⚔️ Combat Slot</h3>
+  <p>Placeholder script slot.</p>
+</div>
+
+<div class="card slot" onclick="selectScript('farming')">
+  <h3>🌾 Farming Slot</h3>
+  <p>Placeholder script slot.</p>
+</div>
+
+<div class="card slot" onclick="selectScript('mining')">
+  <h3>⛏️ Mining Slot</h3>
+  <p>Placeholder script slot.</p>
+</div>
+```
+
   </div>
 
   <div class="card" style="margin-top:25px;">
     <h3 id="scriptTitle">Cap Cycle Detector</h3>
-    <button class="btn primary" onclick="setPlatform('windows')">Windows</button>
-    <button class="btn" onclick="setPlatform('macos')">macOS</button>
+    <button class="btn primary" id="windowsBtn" onclick="setPlatform('windows')">Windows</button>
+    <button class="btn" id="macosBtn" onclick="setPlatform('macos')">macOS</button>
     <pre id="scriptCode"></pre>
     <button class="btn primary" onclick="copyCurrentScript()">Copy Script</button>
+  </div>
+</section>
+
+<section id="updates" class="page">
+  <div class="tag">UPDATE LOG</div>
+  <h2>What's New</h2>
+
+  <div class="cards">
+    <div class="card">
+      <span class="version-badge">Website v1.0.2</span>
+      <h3>Download Buttons Added</h3>
+      <p>Windows and macOS download buttons now link to the uploaded updater files.</p>
+    </div>
+
+```
+<div class="card">
+  <span class="version-badge">Website v1.0.1</span>
+  <h3>Website Hub Update</h3>
+  <p>Added Downloads, Dependencies, Scripts, Settings, About, and Update Log sections.</p>
+</div>
+
+<div class="card">
+  <span class="version-badge">MacroHub v1.0.0</span>
+  <h3>Initial Release</h3>
+  <p>First public MacroHub website and update hub.</p>
+</div>
+```
+
   </div>
 </section>
 
@@ -230,29 +584,50 @@ footer{text-align:center;color:#8796a6;padding:30px;border-top:1px solid #263544
   <h2>Website Settings</h2>
 
   <div class="setting-row">
-    <div><h3>Website Theme</h3><p>Automatic follows your device theme. Dark and Light force the website style.</p></div>
-    <select onchange="changeTheme(this.value)">
-      <option value="auto">Automatic</option>
-      <option value="dark">Dark</option>
-      <option value="blue">Blue</option>
-      <option value="light">Light</option>
-    </select>
-  </div>
-
-  <div class="setting-row">
-    <div><h3>GUI Scale</h3><p>Change the website size from 1 to 5.</p></div>
-    <div class="scale-buttons">
-      <button class="btn" onclick="changeScale(1)">1</button>
-      <button class="btn" onclick="changeScale(2)">2</button>
-      <button class="btn primary" onclick="changeScale(3)">3</button>
-      <button class="btn" onclick="changeScale(4)">4</button>
-      <button class="btn" onclick="changeScale(5)">5</button>
+    <div>
+      <h3>Website Theme</h3>
+      <p>Automatic follows your device theme. Dark, Blue, and Light force the website style.</p>
     </div>
+
+```
+<select onchange="changeTheme(this.value)" id="themeSelect">
+  <option value="auto">Automatic</option>
+  <option value="dark">Dark</option>
+  <option value="blue">Blue</option>
+  <option value="light">Light</option>
+</select>
+```
+
   </div>
 
   <div class="setting-row">
-    <div><h3>Reduced Motion</h3><p>Turn off most animations if you want a calmer website.</p></div>
-    <button class="btn" onclick="toggleMotion()">Toggle Motion</button>
+    <div>
+      <h3>GUI Scale</h3>
+      <p>Change the website size from 1 to 5.</p>
+    </div>
+
+```
+<div class="scale-buttons">
+  <button class="btn" onclick="changeScale(1)">1</button>
+  <button class="btn" onclick="changeScale(2)">2</button>
+  <button class="btn primary" onclick="changeScale(3)">3</button>
+  <button class="btn" onclick="changeScale(4)">4</button>
+  <button class="btn" onclick="changeScale(5)">5</button>
+</div>
+```
+
+  </div>
+
+  <div class="setting-row">
+    <div>
+      <h3>Reduced Motion</h3>
+      <p>Turn off most animations if you want a calmer website.</p>
+    </div>
+
+```
+<button class="btn" onclick="toggleMotion()">Toggle Motion</button>
+```
+
   </div>
 </section>
 
@@ -260,9 +635,18 @@ footer{text-align:center;color:#8796a6;padding:30px;border-top:1px solid #263544
 
 <footer>© 2026 MacroHub. Built for local script organization and update delivery.</footer>
 
+<div id="updateModal" class="modal">
+  <div class="modal-box">
+    <div class="tag">WHAT'S NEW</div>
+    <h2>Website v1.0.2</h2>
+    <p>Download buttons now connect to the uploaded Windows and macOS MacroHub updater files. Update Log was also added.</p>
+    <button class="btn primary" onclick="closeUpdateModal()">Got it</button>
+    <button class="btn" onclick="showPage('updates');closeUpdateModal()">View Update Log</button>
+  </div>
+</div>
+
 <script>
-const WINDOWS_LATEST_DOWNLOAD = "PASTE_WINDOWS_GITHUB_RELEASE_LINK_HERE";
-const MAC_LATEST_DOWNLOAD = "PASTE_MACOS_GITHUB_RELEASE_LINK_HERE";
+const WEBSITE_VERSION = "1.0.2";
 
 let currentScript = "cap";
 let currentPlatform = "windows";
@@ -343,7 +727,7 @@ EndFunc`;
 
 const macCap = String.raw`-- Hammerspoon macOS version of Cap Cycle Detector
 -- Save this in ~/.hammerspoon/init.lua, then reload Hammerspoon.
--- J starts, Q stops, F9 exits/reloads.
+-- J starts, Q stops, F9 reloads/exits.
 
 local running = false
 local timer = nil
@@ -455,33 +839,50 @@ const placeholder = String.raw`# Placeholder script slot
 function showPage(pageId){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
   document.getElementById(pageId).classList.add("active");
+
   document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
   const nav=document.getElementById("nav-"+pageId);
   if(nav) nav.classList.add("active");
+
   history.pushState(null,"","#"+pageId);
   window.scrollTo(0,0);
 }
 
 function openScript(type){
   showPage("scripts");
-  selectScript(type === "fishing" ? "cap" : type);
+  selectScript(type);
 }
 
 function selectScript(name){
   currentScript = name;
-  if(name==="cap") document.getElementById("scriptTitle").innerText="Cap Cycle Detector";
-  else document.getElementById("scriptTitle").innerText=name.charAt(0).toUpperCase()+name.slice(1)+" Slot";
+
+  document.querySelectorAll(".slot").forEach(s=>s.classList.remove("active"));
+
+  if(name==="cap"){
+    document.getElementById("scriptTitle").innerText="Cap Cycle Detector";
+  }else{
+    document.getElementById("scriptTitle").innerText=name.charAt(0).toUpperCase()+name.slice(1)+" Slot";
+  }
+
   updateScriptBox();
 }
 
 function setPlatform(platform){
   currentPlatform = platform;
+
+  document.getElementById("windowsBtn").className = platform === "windows" ? "btn primary" : "btn";
+  document.getElementById("macosBtn").className = platform === "macos" ? "btn primary" : "btn";
+
   updateScriptBox();
 }
 
 function updateScriptBox(){
   let code = placeholder;
-  if(currentScript === "cap") code = currentPlatform === "windows" ? windowsCap : macCap;
+
+  if(currentScript === "cap"){
+    code = currentPlatform === "windows" ? windowsCap : macCap;
+  }
+
   document.getElementById("scriptCode").innerText = code;
 }
 
@@ -490,61 +891,99 @@ function copyCurrentScript(){
   alert("Copied!");
 }
 
-function changeTheme(theme){
-  document.documentElement.classList.remove("auto");
-  if(theme==="auto"){
-    document.documentElement.classList.add("auto");
-    resetDark();
-  }else if(theme==="light"){
-    setVars("#eef3f8","#fff","#dce8f3","#b8c7d6","#071018","#344454");
-  }else if(theme==="blue"){
-    setVars("#061426","#0d2036","#123454","#245477","#f5f7fa","#b8c4d0");
+function applyAutoTheme(){
+  if(window.matchMedia("(prefers-color-scheme: light)").matches){
+    setVars("#eef3f8","#ffffff","#dce8f3","#b8c7d6","#071018","#344454","#f7fbff");
   }else{
     resetDark();
   }
 }
 
-function setVars(bg,panel,panel2,border,text,muted){
+function changeTheme(theme){
+  localStorage.setItem("theme", theme);
+
+  if(theme === "auto"){
+    applyAutoTheme();
+  }else if(theme === "light"){
+    setVars("#eef3f8","#ffffff","#dce8f3","#b8c7d6","#071018","#344454","#f7fbff");
+  }else if(theme === "blue"){
+    setVars("#061426","#0d2036","#123454","#245477","#f5f7fa","#b8c4d0","#081b31");
+  }else{
+    resetDark();
+  }
+}
+
+function setVars(bg,panel,panel2,border,text,muted,header){
   document.documentElement.style.setProperty("--bg",bg);
   document.documentElement.style.setProperty("--panel",panel);
   document.documentElement.style.setProperty("--panel2",panel2);
   document.documentElement.style.setProperty("--border",border);
   document.documentElement.style.setProperty("--text",text);
   document.documentElement.style.setProperty("--muted",muted);
+  document.documentElement.style.setProperty("--header",header);
 }
 
 function resetDark(){
-  setVars("#080c11","#121a22","#17232e","#2b3b4a","#f5f7fa","#b8c4d0");
+  setVars("#080c11","#121a22","#17232e","#2b3b4a","#f5f7fa","#b8c4d0","#101820");
 }
+
+window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",()=>{
+  const savedTheme = localStorage.getItem("theme") || "auto";
+  if(savedTheme === "auto"){
+    applyAutoTheme();
+  }
+});
 
 function changeScale(level){
   const sizes={1:"85%",2:"92%",3:"100%",4:"108%",5:"116%"};
   document.body.style.zoom=sizes[level];
+  localStorage.setItem("scale", level);
 }
 
 function toggleMotion(){
   const style=document.getElementById("motionStyle");
-  if(style){style.remove();return}
+  if(style){
+    style.remove();
+    localStorage.setItem("motion","on");
+    return;
+  }
+
   const s=document.createElement("style");
   s.id="motionStyle";
   s.innerHTML="*{animation:none!important;transition:none!important}";
   document.head.appendChild(s);
+  localStorage.setItem("motion","off");
 }
 
-function downloadWindowsLatest(){
-  if(WINDOWS_LATEST_DOWNLOAD.includes("PASTE_")) alert("Add your real Windows GitHub Release link first.");
-  else window.open(WINDOWS_LATEST_DOWNLOAD,"_blank");
+function checkWebsiteUpdate(){
+  const seenVersion = localStorage.getItem("seenWebsiteVersion");
+  if(seenVersion !== WEBSITE_VERSION){
+    document.getElementById("updateModal").style.display = "grid";
+  }
 }
 
-function downloadMacLatest(){
-  if(MAC_LATEST_DOWNLOAD.includes("PASTE_")) alert("Add your real macOS GitHub Release link first.");
-  else window.open(MAC_LATEST_DOWNLOAD,"_blank");
+function closeUpdateModal(){
+  localStorage.setItem("seenWebsiteVersion", WEBSITE_VERSION);
+  document.getElementById("updateModal").style.display = "none";
 }
 
 const startPage=location.hash.replace("#","")||"home";
 if(document.getElementById(startPage)) showPage(startPage);
 else showPage("home");
+
+const savedTheme = localStorage.getItem("theme") || "auto";
+document.getElementById("themeSelect").value = savedTheme;
+changeTheme(savedTheme);
+
+const savedScale = localStorage.getItem("scale") || "3";
+changeScale(savedScale);
+
+if(localStorage.getItem("motion") === "off"){
+  toggleMotion();
+}
+
 updateScriptBox();
+checkWebsiteUpdate();
 </script>
 
 </body>
