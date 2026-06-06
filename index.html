@@ -308,6 +308,36 @@ select{
   animation:pageIn .3s ease both;
 }
 
+
+.cookie-banner{
+  position:fixed;
+  left:20px;
+  right:20px;
+  bottom:20px;
+  z-index:1000;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px;
+  display:none;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
+
+.cookie-banner p{
+  margin:6px 0 0;
+  font-size:14px;
+}
+
+@media(max-width:700px){
+  .cookie-banner{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}
+
 footer{
   text-align:center;
   color:#8796a6;
@@ -618,6 +648,18 @@ footer{
 </main>
 
 <footer>© 2026 MacroHub. Built for local script organization and update delivery.</footer>
+
+
+<div id="cookieBanner" class="cookie-banner">
+  <div>
+    <strong>Cookies & Website Data</strong>
+    <p>MacroHub uses saved browser data to remember your theme, scale, motion, and update preferences.</p>
+  </div>
+  <div>
+    <button class="btn" onclick="denyCookies()">Deny</button>
+    <button class="btn primary" onclick="allowCookies()">Allow</button>
+  </div>
+</div>
 
 <div id="updateModal" class="modal">
   <div class="modal-box">
@@ -962,6 +1004,28 @@ function closeUpdateModal(){
   document.getElementById("updateModal").style.display = "none";
 }
 
+
+function showCookieBanner(){
+  const consent = localStorage.getItem("cookieConsent");
+  if(!consent){
+    document.getElementById("cookieBanner").style.display = "flex";
+  }
+}
+
+function allowCookies(){
+  localStorage.setItem("cookieConsent", "allowed");
+  document.getElementById("cookieBanner").style.display = "none";
+}
+
+function denyCookies(){
+  localStorage.setItem("cookieConsent", "denied");
+  localStorage.removeItem("theme");
+  localStorage.removeItem("scale");
+  localStorage.removeItem("motion");
+  localStorage.removeItem("seenWebsiteVersion");
+  document.getElementById("cookieBanner").style.display = "none";
+}
+
 const startPage=location.hash.replace("#","")||"home";
 if(document.getElementById(startPage)) showPage(startPage,true);
 else showPage("home",true);
@@ -978,6 +1042,7 @@ if(localStorage.getItem("motion") === "off"){
 }
 
 updateScriptBox();
+showCookieBanner();
 checkWebsiteUpdate();
 </script>
 
