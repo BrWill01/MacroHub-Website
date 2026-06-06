@@ -22,48 +22,6 @@
 }
 
 
-:root[data-theme="light"]{
-  --bg:#eef3f8;
-  --header:#f7fbff;
-  --panel:#ffffff;
-  --panel2:#dce8f3;
-  --border:#b8c7d6;
-  --text:#071018;
-  --muted:#344454;
-}
-
-:root[data-theme="blue"]{
-  --bg:#061426;
-  --header:#081b31;
-  --panel:#0d2036;
-  --panel2:#123454;
-  --border:#245477;
-  --text:#f5f7fa;
-  --muted:#b8c4d0;
-}
-
-:root[data-theme="dark"]{
-  --bg:#080c11;
-  --header:#101820;
-  --panel:#121a22;
-  --panel2:#17232e;
-  --border:#2b3b4a;
-  --text:#f5f7fa;
-  --muted:#b8c4d0;
-}
-
-@media (prefers-color-scheme: light){
-  :root:not([data-theme="dark"]):not([data-theme="blue"]){
-    --bg:#eef3f8;
-    --header:#f7fbff;
-    --panel:#ffffff;
-    --panel2:#dce8f3;
-    --border:#b8c7d6;
-    --text:#071018;
-    --muted:#344454;
-  }
-}
-
 html{scroll-behavior:smooth}
 
 body{
@@ -381,6 +339,31 @@ select{
   }
 }
 
+
+.color-picker-wrap{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+}
+
+.color-picker{
+  width:58px;
+  height:44px;
+  padding:0;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--panel2);
+  cursor:pointer;
+}
+
+.color-value{
+  color:var(--muted);
+  font-size:14px;
+  font-weight:800;
+  min-width:80px;
+}
+
 footer{
   text-align:center;
   color:#8796a6;
@@ -627,6 +610,12 @@ footer{
 
   <div class="cards">
     <div class="card">
+      <span class="version-badge">Website v1.0.7</span>
+      <h3>Custom Color Picker Update</h3>
+      <p>Removed Automatic theme and added a Choose color option with automatic readable text contrast.</p>
+    </div>
+
+    <div class="card">
       <span class="version-badge">Website v1.0.2</span>
       <h3>Download Buttons Added</h3>
       <p>Windows and macOS download buttons now link to the uploaded updater files.</p>
@@ -653,17 +642,15 @@ footer{
 
   <div class="setting-row">
     <div>
-      <h3>Website Theme</h3>
-      <p>Automatic follows your device theme. Dark, Blue, and Light force the website style.</p>
+      <h3>Website Color</h3>
+      <p>Choose any color for the website. Text automatically switches between light and dark so it stays readable.</p>
     </div>
 
-<select onchange="changeTheme(this.value)" id="themeSelect">
-  <option value="auto">Automatic</option>
-  <option value="dark">Dark</option>
-  <option value="blue">Blue</option>
-  <option value="light">Light</option>
-</select>
-
+    <div class="color-picker-wrap">
+      <input class="color-picker" type="color" id="customColorPicker" value="#080c11" oninput="changeCustomColor(this.value)">
+      <span class="color-value" id="customColorValue">#080c11</span>
+      <button class="btn" onclick="resetCustomColor()">Reset</button>
+    </div>
   </div>
 
   <div class="setting-row">
@@ -701,7 +688,7 @@ footer{
 <div id="cookieBanner" class="cookie-banner">
   <div>
     <strong>Cookies & Website Data</strong>
-    <p>MacroHub uses saved browser data to remember your theme, scale, motion, and update preferences.</p>
+    <p>MacroHub uses saved browser data to remember your custom color, scale, motion, and update preferences.</p>
   </div>
   <div>
     <button class="btn" onclick="denyCookies()">Deny</button>
@@ -712,15 +699,15 @@ footer{
 <div id="updateModal" class="modal">
   <div class="modal-box">
     <div class="tag">WHAT'S NEW</div>
-    <h2>Website v1.0.6</h2>
-    <p>Fixed Automatic theme using CSS system appearance detection. Automatic now follows your device light/dark mode unless you manually choose Dark, Blue, or Light.</p>
+    <h2>Website v1.0.7</h2>
+    <p>Removed Automatic theme and added a custom color picker. Text now changes automatically so it stays readable on light or dark backgrounds.</p>
     <button class="btn primary" onclick="closeUpdateModal()">Got it</button>
     <button class="btn" onclick="showPage('updates');closeUpdateModal()">View Update Log</button>
   </div>
 </div>
 
 <script>
-const WEBSITE_VERSION = "1.0.6";
+const WEBSITE_VERSION = "1.0.7";
 
 let currentScript = "cap";
 let currentPlatform = "windows";
@@ -976,38 +963,89 @@ function copyCurrentScript(){
   alert("Copied!");
 }
 
-function applyAutoTheme(){
-  document.documentElement.removeAttribute("data-theme");
-}
-
-function changeTheme(theme){
-  localStorage.setItem("theme", theme);
-
-  if(theme === "auto"){
-    document.documentElement.removeAttribute("data-theme");
-  }else{
-    document.documentElement.setAttribute("data-theme", theme);
+function hexToRgb(hex){
+  hex = hex.replace("#", "");
+  if(hex.length === 3){
+    hex = hex.split("").map(c => c + c).join("");
   }
+
+  return {
+    r: parseInt(hex.slice(0,2), 16),
+    g: parseInt(hex.slice(2,4), 16),
+    b: parseInt(hex.slice(4,6), 16)
+  };
 }
 
-function setVars(bg,panel,panel2,border,text,muted,header){
-  /* Kept only so older saved code does not break. Theme is now controlled by data-theme CSS. */
+function clamp(value, min, max){
+  return Math.max(min, Math.min(max, value));
 }
 
-function resetDark(){
-  document.documentElement.setAttribute("data-theme", "dark");
+function rgbToHex(r,g,b){
+  return "#" + [r,g,b].map(v => {
+    const hex = clamp(Math.round(v),0,255).toString(16);
+    return hex.length === 1 ? "0" + hex : hex;
+  }).join("");
 }
 
-function refreshAutoTheme(){
-  const savedTheme = localStorage.getItem("theme") || "auto";
-  if(savedTheme === "auto"){
-    document.documentElement.removeAttribute("data-theme");
-  }
+function mixColor(hex, target, amount){
+  const c = hexToRgb(hex);
+  const t = target === "white" ? {r:255,g:255,b:255} : {r:0,g:0,b:0};
+
+  return rgbToHex(
+    c.r + (t.r - c.r) * amount,
+    c.g + (t.g - c.g) * amount,
+    c.b + (t.b - c.b) * amount
+  );
 }
 
-if(window.matchMedia){
-  window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", refreshAutoTheme);
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", refreshAutoTheme);
+function getReadableText(hex){
+  const c = hexToRgb(hex);
+  const brightness = (c.r * 299 + c.g * 587 + c.b * 114) / 1000;
+  return brightness > 145 ? "#071018" : "#f5f7fa";
+}
+
+function getMutedText(hex){
+  const c = hexToRgb(hex);
+  const brightness = (c.r * 299 + c.g * 587 + c.b * 114) / 1000;
+  return brightness > 145 ? "#344454" : "#b8c4d0";
+}
+
+function changeCustomColor(hex){
+  localStorage.setItem("customColor", hex);
+  applyCustomColor(hex);
+}
+
+function applyCustomColor(hex){
+  const text = getReadableText(hex);
+  const muted = getMutedText(hex);
+  const c = hexToRgb(hex);
+  const brightness = (c.r * 299 + c.g * 587 + c.b * 114) / 1000;
+  const darkBase = brightness < 145;
+
+  const header = darkBase ? mixColor(hex, "white", 0.05) : mixColor(hex, "black", 0.04);
+  const panel = darkBase ? mixColor(hex, "white", 0.08) : mixColor(hex, "black", 0.02);
+  const panel2 = darkBase ? mixColor(hex, "white", 0.14) : mixColor(hex, "black", 0.10);
+  const border = darkBase ? mixColor(hex, "white", 0.22) : mixColor(hex, "black", 0.22);
+
+  document.documentElement.style.setProperty("--bg", hex);
+  document.documentElement.style.setProperty("--header", header);
+  document.documentElement.style.setProperty("--panel", panel);
+  document.documentElement.style.setProperty("--panel2", panel2);
+  document.documentElement.style.setProperty("--border", border);
+  document.documentElement.style.setProperty("--text", text);
+  document.documentElement.style.setProperty("--muted", muted);
+
+  const picker = document.getElementById("customColorPicker");
+  const label = document.getElementById("customColorValue");
+
+  if(picker) picker.value = hex;
+  if(label) label.innerText = hex.toUpperCase();
+}
+
+function resetCustomColor(){
+  const defaultColor = "#080c11";
+  localStorage.setItem("customColor", defaultColor);
+  applyCustomColor(defaultColor);
 }
 
 function changeScale(level){
@@ -1059,6 +1097,7 @@ function allowCookies(){
 function denyCookies(){
   localStorage.setItem("cookieConsent", "denied");
   localStorage.removeItem("theme");
+  localStorage.removeItem("customColor");
   localStorage.removeItem("scale");
   localStorage.removeItem("motion");
   localStorage.removeItem("seenWebsiteVersion");
@@ -1069,9 +1108,8 @@ const startPage=location.hash.replace("#","")||"home";
 if(document.getElementById(startPage)) showPage(startPage,true);
 else showPage("home",true);
 
-const savedTheme = localStorage.getItem("theme") || "auto";
-document.getElementById("themeSelect").value = savedTheme;
-changeTheme(savedTheme);
+const savedColor = localStorage.getItem("customColor") || "#080c11";
+applyCustomColor(savedColor);
 
 const savedScale = localStorage.getItem("scale") || "3";
 changeScale(savedScale);
