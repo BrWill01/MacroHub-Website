@@ -669,15 +669,15 @@ footer{
 <div id="updateModal" class="modal">
   <div class="modal-box">
     <div class="tag">WHAT'S NEW</div>
-    <h2>Website v1.0.4</h2>
-    <p>Added Node.js to macOS dependencies, kept ZIP downloads connected, and updated the welcome update popup so users see the newest changes.</p>
+    <h2>Website v1.0.5</h2>
+    <p>Fixed Automatic theme so the website follows your device appearance more reliably, including when the system theme changes while the site is open.</p>
     <button class="btn primary" onclick="closeUpdateModal()">Got it</button>
     <button class="btn" onclick="showPage('updates');closeUpdateModal()">View Update Log</button>
   </div>
 </div>
 
 <script>
-const WEBSITE_VERSION = "1.0.4";
+const WEBSITE_VERSION = "1.0.5";
 
 let currentScript = "cap";
 let currentPlatform = "windows";
@@ -934,7 +934,10 @@ function copyCurrentScript(){
 }
 
 function applyAutoTheme(){
-  if(window.matchMedia("(prefers-color-scheme: light)").matches){
+  const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  if(prefersLight && !prefersDark){
     setVars("#eef3f8","#ffffff","#dce8f3","#b8c7d6","#071018","#344454","#f7fbff");
   }else{
     resetDark();
@@ -969,12 +972,20 @@ function resetDark(){
   setVars("#080c11","#121a22","#17232e","#2b3b4a","#f5f7fa","#b8c4d0","#101820");
 }
 
-window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",()=>{
+function refreshAutoTheme(){
   const savedTheme = localStorage.getItem("theme") || "auto";
   if(savedTheme === "auto"){
     applyAutoTheme();
   }
-});
+}
+
+if(window.matchMedia){
+  window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", refreshAutoTheme);
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", refreshAutoTheme);
+}
+
+window.addEventListener("focus", refreshAutoTheme);
+document.addEventListener("visibilitychange", refreshAutoTheme);
 
 function changeScale(level){
   const sizes={1:"85%",2:"92%",3:"100%",4:"108%",5:"116%"};
