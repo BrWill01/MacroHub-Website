@@ -1,11 +1,303 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MacroHub</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #090d12;
+      color: #f5f7fa;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 8%;
+      background: #111820;
+      border-bottom: 1px solid #25313d;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .logo { display: flex; align-items: center; gap: 12px; font-size: 24px; font-weight: 800; }
+    .logo-box {
+      width: 42px; height: 42px; border-radius: 12px;
+      background: linear-gradient(135deg, #78d8ff, #5d7cff);
+      display: grid; place-items: center;
+      color: #061018; font-weight: 900;
+    }
+    nav a {
+      color: #b8c4d0;
+      text-decoration: none;
+      margin-left: 22px;
+      font-weight: 700;
+    }
+    nav a:hover { color: white; }
+    section { padding: 70px 8%; }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 30px;
+      align-items: center;
+    }
+    .tag { color: #7ed7ff; font-weight: 800; letter-spacing: 1px; }
+    h1 { font-size: 58px; margin: 12px 0; line-height: 1; }
+    h2 { font-size: 38px; margin-bottom: 15px; }
+    p { color: #b8c4d0; font-size: 18px; line-height: 1.6; }
+    .buttons { margin-top: 28px; display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      padding: 14px 22px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 800;
+      display: inline-block;
+      border: 1px solid #334454;
+      color: white;
+      background: #1a2530;
+    }
+    .btn.primary {
+      background: linear-gradient(135deg, #5ef0b0, #4db7ff);
+      color: #071015;
+    }
+    .panel {
+      background: linear-gradient(180deg, #121a22, #0d1319);
+      border: 1px solid #263746;
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 20px 70px rgba(0,0,0,.35);
+    }
+    .app-preview {
+      min-height: 370px;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      overflow: hidden;
+      padding: 0;
+    }
+    .sidebar {
+      background: #0d1218;
+      border-right: 1px solid #263746;
+      padding: 22px;
+    }
+    .side-item {
+      padding: 13px;
+      margin: 10px 0;
+      border-radius: 10px;
+      color: #dce7f2;
+      background: #151d25;
+      font-weight: 700;
+    }
+    .preview-main { padding: 28px; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+    .card {
+      background: #141b23;
+      border: 1px solid #2a3947;
+      border-radius: 18px;
+      padding: 24px;
+    }
+    .card h3 { font-size: 24px; margin: 8px 0; }
+    .download-box {
+      background: #111a22;
+      border: 1px solid #314456;
+      border-radius: 18px;
+      padding: 25px;
+      margin-top: 25px;
+    }
+    pre {
+      background: #070b0f;
+      border: 1px solid #2a3947;
+      padding: 18px;
+      border-radius: 14px;
+      overflow-x: auto;
+      color: #d8f3ff;
+    }
+    .copy-btn {
+      margin-top: 10px;
+      padding: 10px 14px;
+      border: 0;
+      border-radius: 10px;
+      background: #5ef0b0;
+      color: #061018;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    footer {
+      padding: 30px 8%;
+      border-top: 1px solid #25313d;
+      color: #8493a3;
+      text-align: center;
+    }
+    @media (max-width: 850px) {
+      .hero { grid-template-columns: 1fr; }
+      h1 { font-size: 42px; }
+      nav { display: none; }
+      .app-preview { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to MacroHub</h1>
-  <p>The official website for MacroHub.</p>
-  <button>Download</button>
+
+<header>
+  <div class="logo">
+    <div class="logo-box">MH</div>
+    MacroHub
+  </div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#showcase">Showcase</a>
+    <a href="#download">Download</a>
+    <a href="#scripts">Scripts</a>
+    <a href="#settings">Settings</a>
+  </nav>
+</header>
+
+<section id="home" class="hero">
+  <div>
+    <div class="tag">DESKTOP CONTROL PANEL</div>
+    <h1>MacroHub</h1>
+    <p>
+      A clean local script launcher built to keep commands organized by category.
+      Choose a section, pick a saved script, and launch your workflow from one simple hub.
+    </p>
+    <div class="buttons">
+      <a class="btn primary" href="#download">Install Update File</a>
+      <a class="btn" href="#showcase">View Showcase</a>
+      <a class="btn" href="#scripts">View Scripts</a>
+    </div>
+  </div>
+
+  <div class="panel app-preview">
+    <div class="sidebar">
+      <div class="side-item">🏠 Home</div>
+      <div class="side-item">⚔️ Combat</div>
+      <div class="side-item">🌾 Farming</div>
+      <div class="side-item">⛏️ Mining</div>
+      <div class="side-item">🎣 Fishing</div>
+      <div class="side-item">⚙️ Settings</div>
+    </div>
+    <div class="preview-main">
+      <div class="tag">READY WHEN YOU ARE</div>
+      <h2>Choose a category. Pick a script. Launch it.</h2>
+      <p>Organized presets, update support, and separate Windows/macOS instructions.</p>
+      <div class="cards">
+        <div class="card"><h3>⚔️ Combat</h3><p>Hotkey-based routines and helpers.</p></div>
+        <div class="card"><h3>🌾 Farming</h3><p>Crop and repeat-cycle script slots.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="showcase">
+  <div class="tag">SHOWCASE</div>
+  <h2>What MacroHub is for</h2>
+  <p>
+    MacroHub is designed to replace constantly copying and pasting code into an editor.
+    Instead, users can open one desktop hub, choose a category, and run saved local scripts
+    from a clean interface.
+  </p>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Organized Categories</h3>
+      <p>Separate pages for Combat, Farming, Mining, Fishing, and more.</p>
+    </div>
+    <div class="card">
+      <h3>Saved Commands</h3>
+      <p>Keep script commands ready so users do not need to paste them manually every time.</p>
+    </div>
+    <div class="card">
+      <h3>Update Hub</h3>
+      <p>The app can send users here to download the newest update file.</p>
+    </div>
+  </div>
+</section>
+
+<section id="download">
+  <div class="tag">LATEST UPDATE</div>
+  <h2>Download / Install Update File</h2>
+  <p>
+    This is where users will download the newest MacroHub version.
+    Replace the button link with your real update file link later.
+  </p>
+
+  <div class="download-box">
+    <h3>Current Version: macOS 26.5.1</h3>
+    <p>Latest stable development build for MacroHub.</p>
+    <a class="btn primary" href="#" onclick="alert('Add your real download link here later.')">
+      Download Latest Update
+    </a>
+  </div>
+</section>
+
+<section id="scripts">
+  <div class="tag">SCRIPT INSTALLATION</div>
+  <h2>Windows and macOS Setup Scripts</h2>
+  <p>
+    Add safe setup commands here for your app. Users can copy the correct code for their system.
+  </p>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Windows</h3>
+      <pre id="windowsCode"># Windows setup command goes here
+# Example:
+# powershell -ExecutionPolicy Bypass -File install.ps1</pre>
+      <button class="copy-btn" onclick="copyCode('windowsCode')">Copy Windows Code</button>
+    </div>
+
+    <div class="card">
+      <h3>macOS</h3>
+      <pre id="macCode"># macOS setup command goes here
+# Example:
+# chmod +x install.sh
+# ./install.sh</pre>
+      <button class="copy-btn" onclick="copyCode('macCode')">Copy macOS Code</button>
+    </div>
+  </div>
+</section>
+
+<section id="settings">
+  <div class="tag">SETTINGS</div>
+  <h2>App Settings Preview</h2>
+
+  <div class="cards">
+    <div class="card">
+      <h3>App Permissions</h3>
+      <p>Review what MacroHub needs before it uses local files or update tools.</p>
+    </div>
+    <div class="card">
+      <h3>Appearance</h3>
+      <p>Dark theme, interface scaling, and reduced motion options.</p>
+    </div>
+    <div class="card">
+      <h3>Behavior</h3>
+      <p>Control how update checks, script slots, and launch actions behave.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 MacroHub. Built for local script organization and update delivery.
+</footer>
+
+<script>
+  function copyCode(id) {
+    const text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text);
+    alert("Copied!");
+  }
+</script>
+
 </body>
 </html>
+```
