@@ -373,7 +373,6 @@ footer{
       <button class="btn" onclick="showPage('scripts')">View Scripts</button>
     </div>
 
-```
 <div class="panel app-preview">
   <div class="sidebar">
     <div class="side-item" onclick="showPage('home')">🏠 Home</div>
@@ -402,7 +401,6 @@ footer{
     </div>
   </div>
 </div>
-```
 
   </div>
 </section>
@@ -418,7 +416,6 @@ footer{
       <p>Scripts are separated into Combat, Farming, Mining, Fishing, and more.</p>
     </div>
 
-```
 <div class="card">
   <h3>Windows and macOS Support</h3>
   <p>The website shows platform-specific code so users can copy the correct version.</p>
@@ -433,7 +430,6 @@ footer{
   <h3>Clean Hub UI</h3>
   <p>The website matches the dark dashboard style of the desktop app.</p>
 </div>
-```
 
   </div>
 </section>
@@ -448,17 +444,15 @@ footer{
     <h3>MacroHub v1.0.0</h3>
     <p>Use these files to download or update MacroHub.</p>
 
-```
-<a class="btn primary" href="https://github.com/BrWill01/MacroHub-Website/raw/main/downloads/Download%20MacroHub.bat" download>
+<a class="btn primary" href="https://github.com/BrWill01/MacroHub-Website/blob/main/downloads/Download%20MacroHub.bat?raw=1" download>
   Download for Windows
 </a>
 
-<a class="btn primary" href="https://github.com/BrWill01/MacroHub-Website/raw/main/downloads/Download%20MacroHub.command" download>
+<a class="btn primary" href="https://github.com/BrWill01/MacroHub-Website/blob/main/downloads/Download%20MacroHub.command?raw=1" download>
   Download for macOS
 </a>
 
 <button class="btn" onclick="showPage('dependencies')">View Dependencies</button>
-```
 
   </div>
 
@@ -501,13 +495,11 @@ footer{
       <button class="btn" onclick="window.open('https://www.autoitscript.com/site/autoit-script-editor/downloads/','_blank')">Download SciTE Editor</button>
     </div>
 
-```
 <div class="card">
   <h3>macOS</h3>
   <p>macOS users can use Hammerspoon for hotkeys, mouse actions, and screen pixel checks.</p>
   <button class="btn primary" onclick="window.open('https://www.hammerspoon.org/','_blank')">Download Hammerspoon</button>
 </div>
-```
 
   </div>
 </section>
@@ -523,7 +515,6 @@ footer{
       <p>Ready script for Windows and macOS.</p>
     </div>
 
-```
 <div class="card slot" onclick="selectScript('combat')">
   <h3>⚔️ Combat Slot</h3>
   <p>Placeholder script slot.</p>
@@ -538,7 +529,6 @@ footer{
   <h3>⛏️ Mining Slot</h3>
   <p>Placeholder script slot.</p>
 </div>
-```
 
   </div>
 
@@ -562,7 +552,6 @@ footer{
       <p>Windows and macOS download buttons now link to the uploaded updater files.</p>
     </div>
 
-```
 <div class="card">
   <span class="version-badge">Website v1.0.1</span>
   <h3>Website Hub Update</h3>
@@ -574,7 +563,6 @@ footer{
   <h3>Initial Release</h3>
   <p>First public MacroHub website and update hub.</p>
 </div>
-```
 
   </div>
 </section>
@@ -589,14 +577,12 @@ footer{
       <p>Automatic follows your device theme. Dark, Blue, and Light force the website style.</p>
     </div>
 
-```
 <select onchange="changeTheme(this.value)" id="themeSelect">
   <option value="auto">Automatic</option>
   <option value="dark">Dark</option>
   <option value="blue">Blue</option>
   <option value="light">Light</option>
 </select>
-```
 
   </div>
 
@@ -606,7 +592,6 @@ footer{
       <p>Change the website size from 1 to 5.</p>
     </div>
 
-```
 <div class="scale-buttons">
   <button class="btn" onclick="changeScale(1)">1</button>
   <button class="btn" onclick="changeScale(2)">2</button>
@@ -614,7 +599,6 @@ footer{
   <button class="btn" onclick="changeScale(4)">4</button>
   <button class="btn" onclick="changeScale(5)">5</button>
 </div>
-```
 
   </div>
 
@@ -624,9 +608,7 @@ footer{
       <p>Turn off most animations if you want a calmer website.</p>
     </div>
 
-```
 <button class="btn" onclick="toggleMotion()">Toggle Motion</button>
-```
 
   </div>
 </section>
@@ -638,15 +620,15 @@ footer{
 <div id="updateModal" class="modal">
   <div class="modal-box">
     <div class="tag">WHAT'S NEW</div>
-    <h2>Website v1.0.2</h2>
-    <p>Download buttons now connect to the uploaded Windows and macOS MacroHub updater files. Update Log was also added.</p>
+    <h2>Website v1.0.3</h2>
+    <p>Cleaned up broken code marks, fixed download buttons, and fixed browser back/forward navigation.</p>
     <button class="btn primary" onclick="closeUpdateModal()">Got it</button>
     <button class="btn" onclick="showPage('updates');closeUpdateModal()">View Update Log</button>
   </div>
 </div>
 
 <script>
-const WEBSITE_VERSION = "1.0.2";
+const WEBSITE_VERSION = "1.0.3";
 
 let currentScript = "cap";
 let currentPlatform = "windows";
@@ -836,17 +818,28 @@ end`;
 const placeholder = String.raw`# Placeholder script slot
 # Add your script here later.`;
 
-function showPage(pageId){
+function showPage(pageId, fromHistory=false){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.getElementById(pageId).classList.add("active");
+  const page=document.getElementById(pageId);
+  if(!page) return;
+  page.classList.add("active");
 
   document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
   const nav=document.getElementById("nav-"+pageId);
   if(nav) nav.classList.add("active");
 
-  history.pushState(null,"","#"+pageId);
+  if(!fromHistory){
+    history.pushState({page:pageId},"","#"+pageId);
+  }
+
   window.scrollTo(0,0);
 }
+
+window.addEventListener("popstate",()=>{
+  const pageId=location.hash.replace("#","")||"home";
+  if(document.getElementById(pageId)) showPage(pageId,true);
+  else showPage("home",true);
+});
 
 function openScript(type){
   showPage("scripts");
@@ -968,8 +961,8 @@ function closeUpdateModal(){
 }
 
 const startPage=location.hash.replace("#","")||"home";
-if(document.getElementById(startPage)) showPage(startPage);
-else showPage("home");
+if(document.getElementById(startPage)) showPage(startPage,true);
+else showPage("home",true);
 
 const savedTheme = localStorage.getItem("theme") || "auto";
 document.getElementById("themeSelect").value = savedTheme;
